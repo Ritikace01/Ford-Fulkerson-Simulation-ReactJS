@@ -31,6 +31,8 @@ const drawAngledPipe = (ctx, xFrom, yFrom, xTo, yTo) => {
   const midPointX = Math.abs(xFrom - xTo) / 2 + Math.min(xFrom, xTo);
   const midPointY = Math.abs(yFrom - yTo) / 2 + Math.min(yFrom, yTo);
 
+  console.log("(x,y):", xFrom, yFrom, "(x',y'): ", xTo, yTo);
+  console.log("angle: ", angle);
   let { x: arrowEndX, y: arrowEndY } = lineToAngle(
     midPointX,
     midPointY,
@@ -38,8 +40,28 @@ const drawAngledPipe = (ctx, xFrom, yFrom, xTo, yTo) => {
     angle
   );
 
-  lineToAngle(arrowEndX, arrowEndY, 10, Math.PI + angle + Math.PI / 9);
-  lineToAngle(arrowEndX, arrowEndY, 10, Math.PI + angle - Math.PI / 9);
+  if (xFrom < xTo) {
+    //straight direction:
+    lineToAngle(arrowEndX, arrowEndY, 10, Math.PI + angle + Math.PI / 9);
+    lineToAngle(arrowEndX, arrowEndY, 10, Math.PI + angle - Math.PI / 9);
+  } else {
+    if (xFrom == xTo) {
+      if (yFrom < yTo) {
+        //straight direction:
+        lineToAngle(arrowEndX, arrowEndY, 10, Math.PI + angle + Math.PI / 9);
+        lineToAngle(arrowEndX, arrowEndY, 10, Math.PI + angle - Math.PI / 9);
+      } else {
+        //reverse direction:
+        lineToAngle(midPointX, midPointY, 10, angle + Math.PI / 9);
+        lineToAngle(midPointX, midPointY, 10, angle - Math.PI / 9);
+      }
+    } else {
+      //reverse direction:
+      lineToAngle(midPointX, midPointY, 10, angle + Math.PI / 9);
+      lineToAngle(midPointX, midPointY, 10, angle - Math.PI / 9);
+    }
+  }
+
   ctx.stroke();
 };
 
