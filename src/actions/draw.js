@@ -6,6 +6,10 @@ const draw = (ctx) => {
 
   insertEdge(ctx, 250, 300, 400, 100, "black");
 
+  insertEdge(ctx, 250, 300, 100, 200, "black");
+
+  insertEdge(ctx, 400, 100, 250, 100, "black");
+
   insertNode(ctx, 100, 200, "a", "black", "white");
 
   insertNode(ctx, 250, 100, "b", "black", "white");
