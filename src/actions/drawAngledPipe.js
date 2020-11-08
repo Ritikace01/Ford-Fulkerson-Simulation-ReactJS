@@ -1,6 +1,16 @@
-const drawAngledPipe = (ctx, xFrom, yFrom, xTo, yTo) => {
+import drawPipeAnimation from "./drawPipeAnimation";
+
+const drawAngledPipe = (
+  ctx,
+  xFrom,
+  yFrom,
+  xTo,
+  yTo,
+  color = "black",
+  isAnimationActive
+) => {
   const angle = Math.atan((yTo - yFrom) / (xTo - xFrom));
-  console.log("angle: ", angle);
+
   function lineToAngle(x1, y1, length, angle) {
     var x2 = x1 + length * Math.cos(angle),
       y2 = y1 + length * Math.sin(angle);
@@ -10,6 +20,7 @@ const drawAngledPipe = (ctx, xFrom, yFrom, xTo, yTo) => {
     return { x: x2, y: y2 };
   }
 
+  //drawing the rectangle:
   let { x, y } = lineToAngle(xFrom, yFrom, 7.5, Math.PI / 2 + angle);
   lineToAngle(xTo, yTo, 7.5, Math.PI / 2 + angle);
   ctx.lineTo(x, y);
@@ -22,7 +33,7 @@ const drawAngledPipe = (ctx, xFrom, yFrom, xTo, yTo) => {
   lineToAngle(xTo, yTo, 7.5, (3 * Math.PI) / 2 + angle);
   ctx.lineTo(xDash, yDash);
 
-  //arrow:
+  //arrow's line:
   ctx.lineWidth = 0.7;
   const midPointX = Math.abs(xFrom - xTo) / 2 + Math.min(xFrom, xTo);
   const midPointY = Math.abs(yFrom - yTo) / 2 + Math.min(yFrom, yTo);
@@ -44,10 +55,7 @@ const drawAngledPipe = (ctx, xFrom, yFrom, xTo, yTo) => {
     lineToAngle(midPointX, midPointY, 10, angle - Math.PI / 9);
   };
 
-  // if (Math.sin(Math.PI / 2 + angle) > 0) {
-  //   drawStraightDirection();
-  // } else drawReverseDirection();
-
+  //conditions for the array's direction according to the angle:
   if (xFrom < xTo) {
     //straight direction:
     drawStraightDirection();
@@ -72,7 +80,10 @@ const drawAngledPipe = (ctx, xFrom, yFrom, xTo, yTo) => {
       drawReverseDirection();
     }
   }
-
+  // if (isAnimationActive) {
+  //   drawPipeAnimation(ctx, xFrom, yFrom, xTo, yTo);
+  // }
+  ctx.strokeStyle = color;
   ctx.stroke();
 };
 

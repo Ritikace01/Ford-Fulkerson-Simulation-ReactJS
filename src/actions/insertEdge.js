@@ -1,14 +1,14 @@
 import drawAngledPipe from "./drawAngledPipe";
+import drawPipeAnimation from "./drawPipeAnimation";
 
 const insertEdge = (ctx, xFrom, yFrom, xTo, yTo, color, isAnimationActive) => {
   let midPointX = Math.abs(xTo - xFrom) / 2 + Math.min(xTo, xFrom);
   let midPointY = Math.abs(yTo - yFrom) / 2 + Math.min(yTo, yFrom);
 
   const angle = Math.atan((yTo - yFrom) / (xTo - xFrom));
-  drawAngledPipe(ctx, xFrom, yFrom, xTo, yTo);
-
+  drawAngledPipe(ctx, xFrom, yFrom, xTo, yTo, color);
   if (isAnimationActive) {
-    setInterval(() => {}, 1);
+    drawPipeAnimation(ctx, xFrom, yFrom, xTo, yTo);
   }
 
   //adding label:

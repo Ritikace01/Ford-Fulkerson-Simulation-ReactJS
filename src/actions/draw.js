@@ -2,16 +2,16 @@ import insertNode from "./insertNode";
 import insertEdge from "./insertEdge";
 
 const draw = (ctx) => {
-  insertEdge(ctx, 100, 200, 250, 100, "black"); //a->b
-
+  console.log("a->b");
+  insertEdge(ctx, 100, 200, 250, 100, "black", true); //a->b
   console.log("c->b");
-  insertEdge(ctx, 250, 300, 250, 100, "black"); //c->b
-
-  insertEdge(ctx, 250, 300, 400, 100, "black"); //c->d
-
-  insertEdge(ctx, 250, 300, 100, 200, "black"); //c->a
-
-  insertEdge(ctx, 250, 100, 400, 100, "black"); //b->d
+  insertEdge(ctx, 250, 100, 250, 300, "black", true); //c->b
+  console.log("c->d");
+  insertEdge(ctx, 250, 300, 400, 100, "black", true); //c->d
+  console.log("c->a");
+  insertEdge(ctx, 250, 300, 100, 200, "black", true); //c->a
+  console.log("b->d");
+  insertEdge(ctx, 250, 100, 400, 100, "black", true); //b->d
 
   insertNode(ctx, 100, 200, "a", "black", "white");
 
