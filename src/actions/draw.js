@@ -1,29 +1,36 @@
 import insertNode from "./insertNode";
 import insertEdge from "./insertEdge";
+import drawAllNodes from "./drawAllNodes";
 
-const draw = (ctx) => {
-  console.log("a->b");
-  insertEdge(ctx, 100, 200, 250, 100, "black", true); //a->b
-  console.log("c->b");
-  insertEdge(ctx, 250, 100, 250, 300, "black", true); //c->b
-  console.log("c->d");
-  insertEdge(ctx, 250, 300, 400, 100, "black", true); //c->d
-  console.log("c->a");
-  insertEdge(ctx, 250, 300, 100, 200, "black", true); //c->a
-  console.log("b->d");
-  insertEdge(ctx, 250, 100, 400, 100, "black", true); //b->d
+const coordinates = [
+  { node: "s", nodeId: 0, x: 100, y: 300 },
+  { node: "a", nodeId: 1, x: 250, y: 100 },
+  { node: "b", nodeId: 2, x: 250, y: 400 },
+  { node: "c", nodeId: 3, x: 500, y: 100 },
+  { node: "d", nodeId: 4, x: 500, y: 400 },
+  { node: "t", nodeId: 5, x: 650, y: 200 },
+];
 
-  insertNode(ctx, 100, 200, "a", "black", "white");
+const draw = (ctx, adjacencyList) => {
+  //draw edges:
+  adjacencyList.forEach((node) => {
+    node.connections.forEach((connectedNode) => {
+      const fromNode = coordinates.find((n) => node.nodeId === n.nodeId);
+      const toNode = coordinates.find((n) => connectedNode.nodeId === n.nodeId);
+      insertEdge(
+        ctx,
+        fromNode.x,
+        fromNode.y,
+        toNode.x,
+        toNode.y,
+        "black",
+        false
+      );
+    });
+  });
 
-  insertNode(ctx, 250, 100, "b", "black", "white");
-
-  insertNode(ctx, 250, 300, "c", "black", "white");
-
-  insertNode(ctx, 400, 100, "d", "black", "white");
-
-  insertNode(ctx, 400, 300, "e", "black", "white");
-
-  insertNode(ctx, 550, 200, "f", "black", "white");
+  //draw nodes:
+  drawAllNodes(ctx);
 };
 
 export default draw;

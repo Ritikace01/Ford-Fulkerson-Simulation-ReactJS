@@ -12,8 +12,8 @@ const insertEdge = (ctx, xFrom, yFrom, xTo, yTo, color, isAnimationActive) => {
   }
 
   //adding label:
-  const labelX = midPointX + (Math.cos(angle) === 0 ? -15 : -15);
-  const labelY = midPointY + (Math.sin(angle) === 0 ? -20 : -15);
+  const labelX = midPointX + (Math.cos(angle) === 0 ? -20 : +20);
+  const labelY = midPointY + (Math.sin(angle) === 0 ? -20 : +15);
   ctx.font = "20px arial";
   ctx.fillStyle = "black";
   ctx.fillText("lol", labelX, labelY);

@@ -83,6 +83,7 @@ function BFS(residueGraph) {
   }
   return visited[5] == true;
 }
+
 function FordFulkerson() {
   let maxFlow = 0;
   let residueGraph = [[], [], [], [], [], []];
@@ -93,9 +94,11 @@ function FordFulkerson() {
   let v = 0;
   let u = 0;
   while (BFS(residueGraph)) {
+    console.log("parent: ", parent);
     let bottleneck = Number.MAX_VALUE;
     for (v = 5; v != 0; v = parent[v]) {
       u = parent[v];
+
       bottleneck = Math.min(bottleneck, residueGraph[u][v]);
     }
 

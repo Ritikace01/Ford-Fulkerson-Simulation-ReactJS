@@ -2,47 +2,48 @@ import React, { useEffect } from "react";
 import draw from "../actions/draw";
 
 function Canvas(props) {
-  const coorindates = [
-    { node: "s", x: 100, y: 200 },
-    { node: "a", x: 250, y: 200 },
-    { node: "b", x: 250, y: 300 },
-    { node: "c", x: 400, y: 100 },
-    { node: "d", x: 400, y: 300 },
-    { node: "t", x: 550, y: 200 },
-  ];
-
   const adjacencyList = [
     {
+      nodeId: 0,
       node: "s",
       connections: [
-        { node: "a", capacity: "13" },
-        { node: "c", capacity: "8" },
+        { nodeId: 1, node: "a", capacity: "13" },
+        { nodeId: 3, node: "c", capacity: "8" },
       ],
     },
     {
+      nodeId: 1,
       node: "a",
       connections: [
-        { node: "c", capacity: "8" },
-        { node: "b", capacity: "10" },
+        { nodeId: 3, node: "c", capacity: "8" },
+        { nodeId: 2, node: "b", capacity: "10" },
       ],
     },
     {
+      nodeId: 2,
       node: "b",
       connections: [
-        { node: "c", capacity: "1" },
-        { node: "d", capacity: "3" },
+        { nodeId: 3, node: "c", capacity: "1" },
+        { nodeId: 4, node: "d", capacity: "3" },
       ],
     },
     {
+      nodeId: 3,
       node: "c",
-      connections: [{ node: "t", capacity: "10" }],
+      connections: [{ nodeId: 5, node: "t", capacity: "10" }],
     },
     {
+      nodeId: 4,
       node: "d",
       connections: [
-        { node: "c", capacity: "8" },
-        { node: "t", capacity: "7" },
+        { nodeId: 3, node: "c", capacity: "8" },
+        { nodeId: 5, node: "t", capacity: "7" },
       ],
+    },
+    {
+      nodeId: 5,
+      node: "t",
+      connections: [],
     },
   ];
 
@@ -55,7 +56,7 @@ function Canvas(props) {
 
     const ctx = canvas.getContext("2d");
 
-    draw(ctx);
+    draw(ctx, adjacencyList);
   }, []);
 
   return (

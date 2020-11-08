@@ -1,3 +1,4 @@
+import drawAllNodes from "./drawAllNodes";
 import insertNode from "./insertNode";
 
 const drawPipeAnimation = (ctx, xFrom, yFrom, xTo, yTo) => {
@@ -72,17 +73,7 @@ const drawPipeAnimation = (ctx, xFrom, yFrom, xTo, yTo) => {
     ctx.fillStyle = "rgb(0, 153, 255)";
     ctx.fill();
     //draw the nodes again:
-    insertNode(ctx, 100, 200, "a", "black", "white");
-
-    insertNode(ctx, 250, 100, "b", "black", "white");
-
-    insertNode(ctx, 250, 300, "c", "black", "white");
-
-    insertNode(ctx, 400, 100, "d", "black", "white");
-
-    insertNode(ctx, 400, 300, "e", "black", "white");
-
-    insertNode(ctx, 550, 200, "f", "black", "white");
+    drawAllNodes(ctx);
 
     window.requestAnimationFrame(pipeFilling);
   };
