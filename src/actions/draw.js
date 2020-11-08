@@ -24,7 +24,8 @@ const draw = (ctx, adjacencyList) => {
         toNode.x,
         toNode.y,
         "black",
-        false
+        false,
+        connectedNode.capacity
       );
     });
   });

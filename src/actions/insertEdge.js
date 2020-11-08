@@ -1,7 +1,16 @@
 import drawAngledPipe from "./drawAngledPipe";
 import drawPipeAnimation from "./drawPipeAnimation";
 
-const insertEdge = (ctx, xFrom, yFrom, xTo, yTo, color, isAnimationActive) => {
+const insertEdge = (
+  ctx,
+  xFrom,
+  yFrom,
+  xTo,
+  yTo,
+  color,
+  isAnimationActive,
+  label
+) => {
   let midPointX = Math.abs(xTo - xFrom) / 2 + Math.min(xTo, xFrom);
   let midPointY = Math.abs(yTo - yFrom) / 2 + Math.min(yTo, yFrom);
 
@@ -16,7 +25,7 @@ const insertEdge = (ctx, xFrom, yFrom, xTo, yTo, color, isAnimationActive) => {
   const labelY = midPointY + (Math.sin(angle) === 0 ? -20 : +15);
   ctx.font = "20px arial";
   ctx.fillStyle = "black";
-  ctx.fillText("lol", labelX, labelY);
+  ctx.fillText(label, labelX, labelY);
 
   ctx.lineWidth = 1;
 };
