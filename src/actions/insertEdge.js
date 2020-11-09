@@ -17,7 +17,7 @@ const insertEdge = (
   const angle = Math.atan((yTo - yFrom) / (xTo - xFrom));
   drawAngledPipe(ctx, xFrom, yFrom, xTo, yTo, color);
   if (isAnimationActive) {
-    drawPipeAnimation(ctx, xFrom, yFrom, xTo, yTo);
+    //drawPipeAnimation(ctx, xFrom, yFrom, xTo, yTo);
   }
 
   //adding label:

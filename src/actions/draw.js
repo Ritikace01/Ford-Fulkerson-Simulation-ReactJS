@@ -1,33 +1,88 @@
-import insertNode from "./insertNode";
 import insertEdge from "./insertEdge";
 import drawAllNodes from "./drawAllNodes";
+import coordinates from "./nodeCoordinates";
+import fordFulkerson from "./fordFulkerson";
+import drawPipeAnimation from "./drawPipeAnimation";
 
-const coordinates = [
-  { node: "s", nodeId: 0, x: 100, y: 300 },
-  { node: "a", nodeId: 1, x: 250, y: 100 },
-  { node: "b", nodeId: 2, x: 250, y: 400 },
-  { node: "c", nodeId: 3, x: 500, y: 100 },
-  { node: "d", nodeId: 4, x: 500, y: 400 },
-  { node: "t", nodeId: 5, x: 650, y: 200 },
-];
-
-const draw = (ctx, adjacencyList) => {
-  //draw edges:
-  adjacencyList.forEach((node) => {
-    node.connections.forEach((connectedNode) => {
-      const fromNode = coordinates.find((n) => node.nodeId === n.nodeId);
-      const toNode = coordinates.find((n) => connectedNode.nodeId === n.nodeId);
-      insertEdge(
-        ctx,
-        fromNode.x,
-        fromNode.y,
-        toNode.x,
-        toNode.y,
-        "black",
-        false,
-        connectedNode.capacity
-      );
+const draw = (ctx, adjacencyList, isActive, canvas) => {
+  const drawEdges = () => {
+    adjacencyList.forEach((node) => {
+      node.connections.forEach((connectedNode) => {
+        const fromNode = coordinates.find((n) => node.nodeId === n.nodeId);
+        const toNode = coordinates.find(
+          (n) => connectedNode.nodeId === n.nodeId
+        );
+        insertEdge(
+          ctx,
+          fromNode.x,
+          fromNode.y,
+          toNode.x,
+          toNode.y,
+          "black",
+          connectedNode.isFlowing,
+          connectedNode.capacity
+        );
+      });
     });
+  };
+
+  //draw edges:
+  drawEdges();
+  ctx.save();
+  //fordFulkerson::::::::::::::::::::::::
+  const {
+    flowGraph,
+    flowOfGraph,
+    maxFlow,
+    augmentingPaths,
+    residueGraphs,
+  } = fordFulkerson(adjacencyList);
+
+  augmentingPaths.forEach((path, index) => {
+    setTimeout(() => {
+      adjacencyList.map((node) => {
+        node.connections.map((c) => {
+          c.isFlowing = false;
+          return c;
+        });
+        return node;
+      });
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawEdges();
+      drawAllNodes(ctx);
+      path.forEach((node, index) => {
+        if (node === -1) return;
+        const fromNodeIndex = adjacencyList.findIndex((n) => n.nodeId === node);
+        const toNodeIndex = adjacencyList[fromNodeIndex].connections.findIndex(
+          (n) => n.nodeId === index
+        );
+        const fromNode = coordinates.find(
+          (node) => node.nodeId === adjacencyList[fromNodeIndex].nodeId
+        );
+        const toNode = coordinates.find(
+          (node) =>
+            node.nodeId ===
+            adjacencyList[fromNodeIndex].connections[toNodeIndex].nodeId
+        );
+        adjacencyList[fromNodeIndex].connections[toNodeIndex].isFlowing = true;
+        setTimeout(() => {
+          //draw animation:
+          drawPipeAnimation(ctx, fromNode.x, fromNode.y, toNode.x, toNode.y);
+        }, 1000 * index);
+      });
+      setTimeout(() => {
+        //change labels
+
+        adjacencyList.map((node) => {
+          node.connections.map((n) => {
+            //change labels here
+            return n;
+          });
+          return node;
+        });
+      }, 6000);
+    }, 8000 * index);
+    drawEdges();
   });
 
   //draw nodes:

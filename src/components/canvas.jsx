@@ -7,43 +7,44 @@ function Canvas(props) {
       nodeId: 0,
       node: "s",
       connections: [
-        { nodeId: 1, node: "a", capacity: "13" },
-        { nodeId: 3, node: "c", capacity: "8" },
+        { nodeId: 1, node: "a", capacity: "13", isFlowing: false },
+        { nodeId: 3, node: "c", capacity: "8", isFlowing: false },
       ],
     },
     {
       nodeId: 1,
       node: "a",
       connections: [
-        { nodeId: 3, node: "c", capacity: "8" },
-        { nodeId: 2, node: "b", capacity: "10" },
+        { nodeId: 3, node: "c", capacity: "8", isFlowing: false },
+        { nodeId: 2, node: "b", capacity: "10", isFlowing: false },
       ],
     },
     {
       nodeId: 2,
       node: "b",
       connections: [
-        { nodeId: 3, node: "c", capacity: "1" },
-        { nodeId: 4, node: "d", capacity: "3" },
+        { nodeId: 3, node: "c", capacity: "1", isFlowing: false },
+        { nodeId: 4, node: "d", capacity: "3", isFlowing: false },
       ],
     },
     {
       nodeId: 3,
       node: "c",
-      connections: [{ nodeId: 5, node: "t", capacity: "10" }],
+      connections: [{ nodeId: 5, node: "t", capacity: "10", isFlowing: false }],
     },
     {
       nodeId: 4,
       node: "d",
       connections: [
-        { nodeId: 3, node: "c", capacity: "8" },
-        { nodeId: 5, node: "t", capacity: "7" },
+        { nodeId: 3, node: "c", capacity: "8", isFlowing: false },
+        { nodeId: 5, node: "t", capacity: "7", isFlowing: false },
       ],
     },
     {
       nodeId: 5,
       node: "t",
       connections: [],
+      isFlowing: false,
     },
   ];
 
@@ -56,18 +57,18 @@ function Canvas(props) {
 
     const ctx = canvas.getContext("2d");
 
-    draw(ctx, adjacencyList);
-  }, []);
+    draw(ctx, adjacencyList, props.isActive, canvas);
+  });
 
   return (
-    <div>
+    <React.Fragment>
       <canvas
         //className="canvas-size"
         ref={canvasRef}
         id="myCanvas"
         resize="true"
       ></canvas>
-    </div>
+    </React.Fragment>
   );
 }
 

@@ -83,6 +83,8 @@ const drawAngledPipe = (
   // if (isAnimationActive) {
   //   drawPipeAnimation(ctx, xFrom, yFrom, xTo, yTo);
   // }
+  ctx.fillStyle = "white";
+  ctx.fill();
   ctx.strokeStyle = color;
   ctx.stroke();
 };

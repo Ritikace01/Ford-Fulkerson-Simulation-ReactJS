@@ -18,7 +18,6 @@ const drawPipeAnimation = (ctx, xFrom, yFrom, xTo, yTo) => {
   let count = 1;
 
   const pipeFilling = () => {
-    ctx.save();
     ctx.beginPath();
     if (count >= length) return;
     let { x: prevX, y: prevY } = lineToAngle(
@@ -57,7 +56,7 @@ const drawPipeAnimation = (ctx, xFrom, yFrom, xTo, yTo) => {
       }
     }
 
-    count += 2; //increase this to increase the flow speed
+    count += 3; //increase this to increase the flow speed
 
     lineToAngle(nextX, nextY, 3, Math.PI / 2 + angle);
     ctx.lineTo(prevX, prevY);
