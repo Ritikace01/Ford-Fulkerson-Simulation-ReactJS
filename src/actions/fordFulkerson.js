@@ -22,6 +22,7 @@ function fordFulkerson(adjacencyList) {
 
   var augmentingPaths = [];
   var residueGraphs = [];
+  var bottlenecks = [];
 
   function BFS(residueGraph) {
     let visited = [false, false, false, false, false, false];
@@ -70,6 +71,7 @@ function fordFulkerson(adjacencyList) {
       residueGraph[u][v] -= bottleneck;
       residueGraph[v][u] += bottleneck;
     }
+    bottlenecks.push(bottleneck);
     residueGraphs.push([...residueGraph]);
     maxFlow += bottleneck;
   }
@@ -82,7 +84,14 @@ function fordFulkerson(adjacencyList) {
         flowOfGraph[i][j] = flowGraph[i][j] - residueGraph[i][j];
       else flowOfGraph[i][j] = 0;
 
-  return { flowGraph, flowOfGraph, maxFlow, augmentingPaths, residueGraphs };
+  return {
+    flowGraph,
+    flowOfGraph,
+    maxFlow,
+    augmentingPaths,
+    residueGraphs,
+    bottlenecks,
+  };
 
   // console.log("Capacity of Flow Graph", flowGraph);
   // console.log("Flow of Flow Graph", flowOfGraph);
@@ -90,5 +99,7 @@ function fordFulkerson(adjacencyList) {
   // console.log("Max Flow", maxFlow);
   // console.log("augmentingPaths: ", augmentingPaths);
 }
+
+//fordFulkerson();
 
 export default fordFulkerson;

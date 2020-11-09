@@ -2,6 +2,15 @@ import React, { useEffect } from "react";
 import draw from "../actions/draw";
 
 function Canvas(props) {
+  const {
+    isActive,
+    setAugmentingPaths,
+    setCurrentAugmentingIndex,
+    setMaxFlowPath,
+    setBottlenecks,
+    setMaxFlow,
+  } = props;
+
   const adjacencyList = [
     {
       nodeId: 0,
@@ -57,8 +66,18 @@ function Canvas(props) {
 
     const ctx = canvas.getContext("2d");
 
-    draw(ctx, adjacencyList, props.isActive, canvas);
-  });
+    draw(
+      ctx,
+      adjacencyList,
+      isActive,
+      canvas,
+      setCurrentAugmentingIndex,
+      setAugmentingPaths,
+      setBottlenecks,
+      setMaxFlowPath,
+      setMaxFlow
+    );
+  }, [isActive]);
 
   return (
     <React.Fragment>
