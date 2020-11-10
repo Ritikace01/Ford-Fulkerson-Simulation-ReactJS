@@ -83,6 +83,26 @@ const InputAdjacency = (props) => {
     forceUpdate();
   };
 
+  const disabledCondition = (index) => {
+    console.log("adjacency lsit: ", adjacencyList);
+    const filteredList = adjacencyList.filter((node, i) => {
+      const another = adjacencyList[index].connections.find((n, i) => {
+        //
+        if (n.nodeId === node.nodeId) return n;
+        else return null;
+      });
+      const reverse = adjacencyList[node.nodeId].connections.find(
+        (node) => node.nodeId === index
+      );
+
+      if (another || reverse || node.nodeId === 0 || index === node.nodeId)
+        return null;
+      else return node;
+    });
+    console.log("filteredList = ", filteredList);
+    return filteredList.length === 0;
+  };
+
   const handleDelete = (nodeIndex, connectionIndex) => {
     const adjList = adjacencyList;
     const connections = adjList[nodeIndex].connections;
@@ -101,27 +121,24 @@ const InputAdjacency = (props) => {
         .filter((m, index) => index < 5)
         .map((node, index) => {
           return (
-            <div className="mt-2" key={index}>
+            <div className="mt-4 mb-4" key={index}>
               <button
                 type="button"
                 disabled={true}
-                className="btn-sm btn btn-outline-dark rounded-circle mr-1"
+                className=" btn btn-outline-dark rounded-circle mr-1 shadow"
               >
-                {node.node}
+                <strong>{node.node}</strong>
               </button>
               <img src={arrowImage} className=" d-inline mr-2" />
               {
                 /* write code for mapping all connected nodes*/
                 adjacencyList[index].connections.map((n, i) => {
                   return (
-                    <button
-                      key={i}
-                      type="button"
-                      disabled={true}
-                      className="btn-sm btn btn-secondary mr-1"
+                    <div
+                      class="alert alert-light border shadow d-inline m-2"
+                      role="alert"
                     >
                       <strong>{n.node + ", " + n.capacity}</strong>
-
                       <a
                         type="button"
                         onClick={() => handleDelete(index, i)}
@@ -129,7 +146,23 @@ const InputAdjacency = (props) => {
                       >
                         <strong>x</strong>
                       </a>
-                    </button>
+                    </div>
+                    // <button
+                    //   key={i}
+                    //   type="button"
+                    //   disabled={true}
+                    //   className="btn-sm btn btn-secondary mr-1"
+                    // >
+                    //   <strong>{n.node + ", " + n.capacity}</strong>
+
+                    //   <a
+                    //     type="button"
+                    //     onClick={() => handleDelete(index, i)}
+                    //     className="btn btn-danger btn-sm ml-3"
+                    //   >
+                    //     <strong>x</strong>
+                    //   </a>
+                    // </button>
                   );
                 })
               }
@@ -137,6 +170,7 @@ const InputAdjacency = (props) => {
                 <button
                   onClick={() => handleAdd(index)}
                   type="button"
+                  disabled={disabledCondition(index)}
                   className="btn btn-dark btn"
                 >
                   <strong>+</strong>
@@ -154,10 +188,6 @@ const InputAdjacency = (props) => {
             </div>
           );
         });
-  };
-
-  const displayButtons = () => {
-    return <React.Fragment>{}</React.Fragment>;
   };
 
   return (

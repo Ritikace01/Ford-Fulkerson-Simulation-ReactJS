@@ -52,7 +52,7 @@ function Configs(props) {
           <p className="lead">
             <strong>This is the max flow path.</strong>
           </p>
-          <p className="lead d-inline">
+          <p className="lead d-inline text-success">
             <strong>
               The max flow is:{" "}
               {bottlenecks.reduce((total, current) => total + current, 0)}
