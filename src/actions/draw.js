@@ -3,6 +3,7 @@ import drawAllNodes from "./drawAllNodes";
 import coordinates from "./nodeCoordinates";
 import fordFulkerson from "./fordFulkerson";
 import drawPipeAnimation from "./drawPipeAnimation";
+import cutCoordinates from "./cutCoordinates";
 
 const draw = (
   ctx,
@@ -35,6 +36,12 @@ const draw = (
       });
     });
   };
+
+  // cutCoordinates.forEach((cut) => {
+  //   ctx.moveTo(cut.xFrom, cut.yFrom);
+  //   ctx.lineTo(cut.xTo, cut.yTo);
+  //   ctx.stroke();
+  // });
 
   //draw edges:
   drawEdges();
@@ -120,7 +127,7 @@ const draw = (
             drawPipeAnimation(ctx, fromNode.x, fromNode.y, toNode.x, toNode.y);
           }, 1000 * innerIndex);
         });
-      }, 8000 * outerIndex);
+      }, (augmentingPaths.length + 1) * 2000 * outerIndex);
     });
 
     //drawing the ideal path:

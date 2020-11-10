@@ -23,7 +23,7 @@ function Configs(props) {
         if (node === -1) return null;
         const child = coordinates[index];
         return (
-          <p className="lead d-inline">
+          <p className="lead d-inline" key={index}>
             <strong>{"-> " + child.node}</strong>
           </p>
         );
@@ -37,7 +37,7 @@ function Configs(props) {
       return bottlenecks
         .filter((value, index) => index <= currentIndex)
         .map((value, index) => (
-          <React.Fragment>
+          <React.Fragment key={index}>
             <p className="lead d-inline">
               <strong>{value + (index !== currentIndex ? " + " : null)}</strong>
             </p>

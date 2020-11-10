@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import draw from "../actions/draw";
 
 function Canvas(props) {
+  const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
+
   const {
     isActive,
     setAugmentingPaths,
@@ -11,54 +13,13 @@ function Canvas(props) {
     setMaxFlow,
   } = props;
 
-  const adjacencyList = [
-    {
-      nodeId: 0,
-      node: "s",
-      connections: [
-        { nodeId: 1, node: "a", capacity: "13", isFlowing: false },
-        { nodeId: 3, node: "c", capacity: "8", isFlowing: false },
-      ],
-    },
-    {
-      nodeId: 1,
-      node: "a",
-      connections: [
-        { nodeId: 3, node: "c", capacity: "8", isFlowing: false },
-        { nodeId: 2, node: "b", capacity: "10", isFlowing: false },
-      ],
-    },
-    {
-      nodeId: 2,
-      node: "b",
-      connections: [
-        { nodeId: 3, node: "c", capacity: "1", isFlowing: false },
-        { nodeId: 4, node: "d", capacity: "3", isFlowing: false },
-      ],
-    },
-    {
-      nodeId: 3,
-      node: "c",
-      connections: [{ nodeId: 5, node: "t", capacity: "10", isFlowing: false }],
-    },
-    {
-      nodeId: 4,
-      node: "d",
-      connections: [
-        { nodeId: 3, node: "c", capacity: "8", isFlowing: false },
-        { nodeId: 5, node: "t", capacity: "7", isFlowing: false },
-      ],
-    },
-    {
-      nodeId: 5,
-      node: "t",
-      connections: [],
-      isFlowing: false,
-    },
-  ];
+  //const [adjacencyList, setAdjacencyList] = React.useState([]);
 
   const canvasRef = React.useRef(null); //used to refer to the canvas element
+
   useEffect(() => {
+    forceUpdate();
+    props.setIsGraphChanged(false);
     const canvas = canvasRef.current;
 
     canvas.width = window.innerWidth;
@@ -68,7 +29,7 @@ function Canvas(props) {
 
     draw(
       ctx,
-      adjacencyList,
+      props.adjacencyList,
       isActive,
       canvas,
       setCurrentAugmentingIndex,
@@ -77,7 +38,7 @@ function Canvas(props) {
       setMaxFlowPath,
       setMaxFlow
     );
-  }, [isActive]);
+  }, [isActive, props.adjacencyList, props.isGraphChanged]);
 
   return (
     <React.Fragment>

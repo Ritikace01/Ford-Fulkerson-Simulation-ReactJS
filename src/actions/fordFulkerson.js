@@ -1,4 +1,5 @@
 function fordFulkerson(adjacencyList) {
+  console.log("inside ford fulkerson: ", adjacencyList);
   let flowGraph = [
     [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
