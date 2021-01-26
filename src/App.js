@@ -17,7 +17,7 @@ function App() {
 
   return (
     <div className="container">
-      <h3 className="display-4 text-center"> 
+      <h3 className="display-4 text-center">
         Ford Fulkerson Algorithm Simulation
       </h3>
       <PreparedBy />
